@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Создание транзакции</title>
+{% endblock title %}
+
+{% block body %}
+<form method="POST" action="">
+        {% csrf_token %}
+        <p>
+            <label>Новая транзакция</label><br>
+            <select name="cat_for_transact" class="form-select" aria-label="Default select example">
+  <option selected>Выберите категорию</option>
+  {% for c in cat_for_transact %}
+  <option value="{{c.id}}">{{c.name}}</option>
+  {% endfor %}
+</select>
+            <input type="text" name="amount" />сумма
+            <input type="text" name="time" />время
+            <input type="text" name="organization" />организация
+            <input type="text" name="description" />описание
+            <input type="date" name="date" />дата
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+
+{% endblock body %}

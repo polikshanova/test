@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Профиль</title>
+{% endblock title %}
+
+{% block body %}
+{% if user.is_authenticated %}
+
+
+<form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите новое название категории</label><br>
+            <input type="text" name="name" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+    {% if categories.count > 0 %}
+    <h2>Список категорий</h2>
+    <table>
+        <thead><th>Ваши категории</th></thead>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td><a href="edit/{{category.id}}">Изменить</a> | <a href="delete/{{category.id}}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+<a href="create_tr/{{transaction.id}}">Создать транзакцию</a>
+                    {% for transaction in transactions %}
+  <div class="card-header">{{transaction.amount}}
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{transaction.organization}}</li>
+    <li class="list-group-item">{{transaction.time}}</li>
+    <li class="list-group-item">{{transaction.date}}</li>
+    <li class="list-group-item">{{transaction.category}}</li>
+    <li class="list-group-item">{{transaction.description}}</li>
+  </ul>
+</div>
+        {% endfor %}
+      {% else %}
+      <strong>Пожалуйста авторизуйтесь</strong>
+      {% endif %}
+
+
+{% endblock body %}
+
